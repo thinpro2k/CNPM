@@ -1,0 +1,40 @@
+
+<h2 class="page-title">Modify a product</h2>
+<a href="/vendor" class="btn btn-primary">Back to products</a>
+<br><br>
+<form method="POST" action="/vendor/modify-product/{{id}}" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="">Title</label>
+        <input type="text" class="form-control" name="title" value="{{title}}" placeholder="Title">
+    </div>
+    <div class="form-group">
+        <label for="">Desciption</label>
+        <textarea name="description" class="form-control" cols="30" rows="10"  placeholder="Description">{{description}}</textarea>
+    </div>
+    <div class="form-group">
+        <label for="">Price</label>
+        <input type="text" class="form-control" name="price" value="{{price}}" placeholder="Price">
+    </div>
+    <div class="form-group">
+        <label for="">Category</label>
+        <input type="text" class="form-control" name="category" value="{{category}}" placeholder="Category">
+    </div>
+     <div class="form-group">
+        <label for="">Curent Image</label>
+         {{#if image}}
+        <img class="imgnotfound" src="{{image}}">
+        
+        {{else}}
+        <img class="imgnotfound"src="https://lh4.ggpht.com/-PtwFBckvv78/V3aBB39xD9I/AAAAAAAAHFA/EXKKalIB8IkvyJjUzGrDVQCzLMs5Alx9QCLcB/s1600/anh-blogspot-khong-hien-thi.png" alt="">
+        {{/if}}
+    </div>
+      <div class="form-group">
+        <label for="">Image</label>
+        <input type="text" class="form-control" name="image" value="{{image}}" placeholder="Image">
+    </div>
+    
+
+ 
+    <button class="btn btn-primary">Submit</button>
+</form>
+

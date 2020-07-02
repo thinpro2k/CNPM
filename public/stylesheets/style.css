@@ -1,0 +1,21 @@
+.thumbnail img{
+  max-height: 200px;
+  max-width: 300px;
+}
+.thumbnail .description {
+   color: #7f7f7f;
+}
+.thumbnail .price{
+  font-weight: bold;
+  font-size:  16px;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-transform: uppercase !important;
+  font-weight: 700 !important;
+  color: chartreuse;
+  
+}
+.imgnotfound{
+  width: 80px;
+  height: 80px;
+}

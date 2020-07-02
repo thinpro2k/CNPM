@@ -1,0 +1,53 @@
+{{#if products}}
+<div class="row">
+    <div class="col-sm-6 col-md- col-md-offset-3 col-sm-offet-3">
+        <ul class="list-group">
+            {{# each products}}
+            <li class="list-group-item">
+                <span class="badge">{{this.qty}}</span>
+                <img src="{{this.item.image}}" width="200" height="200">
+                <strong>{{this.item.title}}</strong>
+                <span class="label label-success">{{this.price}}</span>
+                <div class="btn-group">
+                    <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown">Action <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="/add/{{this.item._id}}">Increase by 1</a></li>
+                        <li><a href="/reduce/{{this.item._id}}">Reduce by 1</a></li>
+                        <li><a href="/remove/{{this.item._id}}">Remove All</a></li>
+                    </ul>
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6 col-md- col-md-offset-3 col-sm-offet-3">
+        <strong>Total Price: ${{totalPrice}}</strong>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-sm-6 col-md- col-md-offset-3 col-sm-offet-3">
+        <form action="/checkout" method="POST">
+      <script
+        src="https://checkout.stripe.com/checkout.js"
+        class="stripe-button"
+        data-key="pk_test_51GzJlmKPv17GXAC0aW5bqwBOeBzuzCIDkVQiLzmZ2hkB6Kn4IWLSNXf65dv0EdRbXB528YruczNl1J2dQiybXVLl00SSbEKRwI"
+        data-name="Food Shop"
+        data-description="Monthly subscription"
+        data-amount="{{totalPrice}}"
+        data-currency="vnd"
+        data-label="Checkout">
+    </script>
+    </form>
+    </div>
+</div>
+{{else}}
+<div class="row">
+    <div class="col-sm-6 col-md- col-md-offset-3 col-sm-offet-3">
+        <h2>No item in the cart</h2>
+    </div>
+</div>
+{{/if}}
+

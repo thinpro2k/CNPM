@@ -1,16 +1,14 @@
 var express = require('express');
 var router = express.Router();
-//var csrf = require('csurf');
 var passport = require('passport');
 var bcrypt =require('bcryptjs');
 
-// var csrfProtection = csrf();
-// router.use(csrfProtection);
+
 //Get user model
 var User =require('../models/user');
 // Get register
 
-router.get('/register',isLoggedIn,function(req,res){
+router.get('/register',function(req,res){
   var messages = req.flash('error');
   res.render('user/register',{
     title:'Register'
@@ -44,7 +42,6 @@ router.post('/register',function(req,res){
       if(err) console.log(err);
       if(user){
        req.flash('danger','Username exists,choose another!');
-     // res.send(req.flash('danger'));
       res.redirect('/user/register');
       }
       else{
@@ -102,59 +99,3 @@ router.get('/logout', function(req,res,next){
   res.redirect('/');
 });
 module.exports = router;
-
-// router.get('/profile',isLoggedIn,function(req, res, next){
-//   res.render('user/profile');
-// });
-
-// router.get('/logout',isLoggedIn, function(req,res,next){
-//   req.logout();
-//   res.redirect('/');
-// });
-
-// router.use('/', notLoggedIn, function(req, res, next){
-//   next();
-// });
-
-
-// router.get('/signup',function(req, res, next){
-//   var messages = req.flash('error');
-//   res.render('user/signup',{csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length>0});
-// });
-
-// router.post('/signup', passport.authenticate('local.signup',{
-//   successRedirect:'/user/profile',
-//   failureRedirect:'/user/signup',
-//   failureFlash:true
-// }));
-
-// router.get('/signin',function(req, res, next){
-//   var messages = req.flash('error');
-//   res.render('user/signin',{csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length>0});
-// });
-
-// router.post('/signin', passport.authenticate('local.signin',{
-//   successRedirect:'/user/profile',
-//   failureRedirect:'/user/signin',
-//   failureFlash:true
-// }));
-
-// module.exports = router;
-
-function isLoggedIn(req, res, next){
-  if(req.isAuthenticated()){
-    //req.isAuthenticated() will return true if user is logged in
-    next();
-  } else{
-    res.redirect("/");
-  }
-}
-
-// function notLoggedIn(req, res, next){
-//   if(!req.isAuthenticated()){
-//     //req.isAuthenticated() will return true if user is logged in
-//     next();
-//   } else{
-//     res.redirect("/");
-//   }
-// }

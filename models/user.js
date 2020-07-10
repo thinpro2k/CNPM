@@ -1,17 +1,19 @@
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-Schema = mongoose.Schema;
-var bcrypt = require('bcrypt-nodejs');
-const passport = require('passport');
 
-var userSchema = new Schema({
-    email: {type: String,required: true},
-    password: {type: String,required:true}
+
+
+var UserSchema = mongoose.Schema({
+    name: {type: String,required: true},
+    email: {type: String,required:true},
+    username: {type: String,required:true},
+    password: {type: String,required:true},
+    
+    vendor:{type:Number}
 });
-userSchema.methods.encryptPassword = function(password){
+UserSchema.methods.encryptPassword = function(password){
     return bcrypt.hashSync(password, bcrypt.genSaltSync(5), null);
 };
-userSchema.methods.validPassword = function(password){
+UserSchema.methods.validPassword = function(password){
     return bcrypt.compareSync(password, this.password);
 };
-module.exports = mongoose.model('User', userSchema);
+var User = module.exports = mongoose.model('User', UserSchema);

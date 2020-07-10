@@ -5,6 +5,8 @@ var fs =require('fs-extra');
 var resizeImg =require('resize-img');
 
 var Product= require('../models/product');
+var auth=require('../config/auth');
+var isVendor =auth.isVendor;
 
 //get product  index
 router.get('/',function(req,res){

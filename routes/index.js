@@ -5,9 +5,11 @@ var Cart = require('../models/cart');
 var csrf = require('csurf');
 const passport = require('passport');
 const { route } = require('./user');
-
+var Handlebars = require('handlebars');
+var auth=require('../config/auth').isUser;
+var isUser =auth;
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', isUser,function(req, res, next) {
   Product.find(function(err, docs){
       console.log(docs);
      var productChunks = [];
@@ -75,5 +77,8 @@ router.get('/checkout',function(req,res,next){
 });
 router.get('/test',function(req,res){
   res.send('index test');
+});
+Handlebars.registerHelper("counter", function (index){
+  return index + 1;
 });
 module.exports = router;

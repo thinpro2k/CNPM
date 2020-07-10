@@ -26,23 +26,24 @@
         <strong>Total Price: ${{totalPrice}}</strong>
     </div>
 </div>
-<hr>
-<div class="row">
-    <div class="col-sm-6 col-md- col-md-offset-3 col-sm-offet-3">
-        <form action="/checkout" method="POST">
-      <script
-        src="https://checkout.stripe.com/checkout.js"
-        class="stripe-button"
-        data-key="pk_test_51GzJlmKPv17GXAC0aW5bqwBOeBzuzCIDkVQiLzmZ2hkB6Kn4IWLSNXf65dv0EdRbXB528YruczNl1J2dQiybXVLl00SSbEKRwI"
-        data-name="Food Shop"
-        data-description="Monthly subscription"
-        data-amount="{{totalPrice}}"
-        data-currency="vnd"
-        data-label="Checkout">
-    </script>
-    </form>
-    </div>
-</div>
+
+<form class="pp" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_cart">
+<input type="hidden" name="upload" value="1">
+<input type="hidden" name="business" value="thinpro2k@gmail.com">
+{{#each products}}
+<input type="hidden" name="item_name_{{counter @index}}" value="{{this.item.title}}">
+<input type="hidden" name="amount_{{counter @index}}" value="{{this.item.price}}">
+<input type="hidden" name="quantity_{{counter @index}}" value="{{this.qty}}">
+{{/each}}
+<input type="hidden" name="current_code" value="USD">
+<input type="hidden" name="amount" value="{{totalPrice}}">
+
+
+
+
+<input type="submit" value="PayPal">
+</form>
 {{else}}
 <div class="row">
     <div class="col-sm-6 col-md- col-md-offset-3 col-sm-offet-3">

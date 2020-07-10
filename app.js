@@ -16,8 +16,7 @@ var bodyParser = require('body-parser')
 var stripe =require('stripe')('sk_test_51GzJlmKPv17GXAC07gelBoXQEkIBm9iENHxSHHRc2rAHRsc9rGjm2ku4VF8vR2dSN7Kk3a3q53Zy6oLbGfeKFMgU00h0GPIChL')
 var app = express();
 
-var routes = require('./routes/index');
-var userRoutes = require('./routes/user');
+
 
 mongoose.connect('mongodb://localhost:27017/shop', {useNewUrlParser: true, useUnifiedTopology: true});
 var db= mongoose.connection;
@@ -25,7 +24,7 @@ db.on('error',console.error.bind(console,'connection error:'));
 db.once('open',function(){
   console.log('conneted mongodb');
 });
-require('./config/passport')
+require('./config/passport')(passport);
 // view engine setup
 app.engine('.hbs', expressHsb({defaultLayout: 'layout', extname:'.hbs'}));
 // app.set('views', path.join(__dirname, 'views'));
@@ -104,6 +103,11 @@ app.use(function(req, res, next){
   next();
 });
 
+app.get('.',function(req,res,next){
+    res.locals.user=req.user || null;
+    next();
+});
+
 //express fileupload middleare
 app.use(fileUpload());
 
@@ -114,6 +118,9 @@ app.locals.errors =null;
 
 var vendor =require('./routes/vendor');
 var adminPages =require('./routes/admin_pages');
+var routes = require('./routes/index');
+var userRoutes = require('./routes/user');
+
 app.use('/vendor',vendor);
 app.use('/user', userRoutes);
 app.use('/admin/index',adminPages);

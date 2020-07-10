@@ -1,4 +1,8 @@
-
+{{#if errors}}
+{{#each errors}}
+    <div class="alert alert-danger">{{this.msg}}</div>
+{{/each}}
+{{/if}}
 <h2 class="page-title">Modify a product</h2>
 <a href="/vendor" class="btn btn-primary">Back to products</a>
 <br><br>

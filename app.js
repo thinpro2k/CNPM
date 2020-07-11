@@ -24,7 +24,7 @@ db.on('error',console.error.bind(console,'connection error:'));
 db.once('open',function(){
   console.log('conneted mongodb');
 });
-require('./config/passport')(passport);
+require('./config/passport');
 // view engine setup
 app.engine('.hbs', expressHsb({defaultLayout: 'layout', extname:'.hbs'}));
 // app.set('views', path.join(__dirname, 'views'));
@@ -43,42 +43,45 @@ app.use(function (req, res, next) {
   res.locals.messages = require('express-messages')(req, res);
   next();
 });
+app.use(flash());
 //exprss validator
-app.use(validator({
-  errorFormatter: function(param,msg,value){
-    var namespace =param.split('.'),
-    root =namespace.shift(),
-    formParam =root;
-    while (namespace.length){
-      formParam +='['+namespace.shift()+']';
-    }
-    return {
-      param :formParam,
-      msg:msg,
-      value:value
-    };
 
-  },
-  customValidators:{
-    isImage:function(value,filename){
-      var extension = (path.extname(filename)).toLowerCase();
-      switch(extension){
-        case  '.jpg':
-          return '.jpg';
-        case  '.jpeg':
-          return '.jpeg';
-        case  '.png':
-          return '.png';
-        case  '':
-          return '.jpg';
-        default :
-         return false;
-      }
-    }
-  }
+app.use(validator());
+// app.use(validator({
+//   errorFormatter: function(param,msg,value){
+//     var namespace =param.split('.'),
+//     root =namespace.shift(),
+//     formParam =root;
+//     while (namespace.length){
+//       formParam +='['+namespace.shift()+']';
+//     }
+//     return {
+//       param :formParam,
+//       msg:msg,
+//       value:value
+//     };
+
+//   },
+//   customValidators:{
+//     isImage:function(value,filename){
+//       var extension = (path.extname(filename)).toLowerCase();
+//       switch(extension){
+//         case  '.jpg':
+//           return '.jpg';
+//         case  '.jpeg':
+//           return '.jpeg';
+//         case  '.png':
+//           return '.png';
+//         case  '':
+//           return '.jpg';
+//         default :
+//          return false;
+//       }
+//     }
+//   }
 
   
-}));
+// }));
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -91,7 +94,7 @@ app.use(session(
   store: new MongoStore({ mongooseConnection: mongoose.connection}),
   cookie:{maxAge: 180 * 60 *1000}
 }))
-app.use(flash());
+
 
 app.use(passport.initialize());
 app.use(passport.session())
@@ -100,13 +103,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(function(req, res, next){
   res.locals.login = req.isAuthenticated();
   res.locals.session = req.session;
+  res.locals.user=req.user || null;
   next();
 });
 
-app.get('.',function(req,res,next){
-    res.locals.user=req.user || null;
-    next();
-});
 
 //express fileupload middleare
 app.use(fileUpload());

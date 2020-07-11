@@ -29,14 +29,18 @@
             <span class="badge">{{session.cart.totalQty}}</span>
           </a>
         </li>
+        {{#if user}}
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i></i>User management<span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i></i>Hi,{{name}}<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            {{#if login}}
-            <li><a href="/user/profile"></i>User account</a></li>
+            
+            <li><a href="/user/profile"></i>User management</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="/user/logout"></i>Logout</a></li>
             {{else}}
+            <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i></i>Login<span class="caret"></span></a>
+          <ul class="dropdown-menu">
             <li><a href="/user/register"></i>Register</a></li>
             <li><a href="/user/login">Login</a></li>
             {{/if}}

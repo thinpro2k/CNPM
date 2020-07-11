@@ -3,6 +3,9 @@
     <div class="alert alert-danger">{{this.msg}}</div>
 {{/each}}
 {{/if}}
+  {{#each messages}}
+<div class="alert alert-danger">{{this}}</div>
+{{/each}}
 <h2 class="page-title">Add a product</h2>
 <a href="/vendor" class="btn btn-primary">Back to products</a>
 <br><br>

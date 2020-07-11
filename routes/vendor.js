@@ -6,10 +6,12 @@ var resizeImg =require('resize-img');
 
 var Product= require('../models/product');
 var auth=require('../config/auth');
+const flash = require('express-flash');
 var isVendor =auth.isVendor;
 
 //get product  index
-router.get('/',function(req,res){
+router.get('/',isVendor,function(req,res){
+   var messages = req.flash('error');
    var count ;
    Product.count(function(err,c){
        count=c;
@@ -17,7 +19,8 @@ router.get('/',function(req,res){
    Product.find(function(err,products){
        res.render('vendor/products',{
            products: products,
-           count:count
+           count:count,
+           messages:messages
         });
    });
    
@@ -25,14 +28,16 @@ router.get('/',function(req,res){
 });
 
 //get add product index
-router.get('/add_product',function(req,res){
+router.get('/add_product',isVendor,function(req,res){
    var title ="";
    var description ="";
    var price =""; 
+   var messages = req.flash('error');
    res.render('vendor/add_product',{
        title :title,
        description : description,
-       price : price 
+       price : price,
+       messages:messages
    });
     
     
@@ -70,7 +75,7 @@ router.post('/add_product',function(req,res){
      else{
          Product.findOne({slug:slug},function(err,product){
              if(product){
-                 req.flash('danger','');
+                req.flash('error','product is already in use');
                  res.render('vendor/add_product',{
                     title :title,
                     description:description,
@@ -91,7 +96,7 @@ router.post('/add_product',function(req,res){
                 });
                 product.save(function(err){
                     if(err) return console.log(err);
-                    req.flash('sucess','product added');
+                    req.flash('error','product added');
                     res.redirect('/vendor');
                 })
             }
@@ -100,8 +105,9 @@ router.post('/add_product',function(req,res){
      
 });
 //get   modify product
-router.get('/modify-product/:id',function(req,res){
+router.get('/modify-product/:id',isVendor,function(req,res){
       var errors;
+      
        if (req.session.errors)
          errors=req.session.errors;
          req.session.errors=null;
@@ -111,6 +117,7 @@ router.get('/modify-product/:id',function(req,res){
                res.redirect('/vendor')
            }
            else{
+               
                res.render('vendor/modify_product',{
                    title : p.title,
                    errors: errors,
@@ -150,7 +157,7 @@ router.post('/modify-product/:id',function(req,res){
         Product.findOne({slug:slug,_id:{'$ne':id}},function(err,p){
             if(err) console.log(err);
             if(p){
-                req.flash('danger','product title exists ,choose another');
+                req.flash('error','product title exists ,choose another');
                 res.redirect('/vendor/modify-product'+id);
             }
             else{
@@ -165,7 +172,7 @@ router.post('/modify-product/:id',function(req,res){
                     p.save(function(err){
                     if(err) console.log(err);
                     console.log('sucess');
-                    req.flash('sucess','product added');
+                    req.flash('error','product modified');
                     res.redirect('/vendor');
                     });
                 });
@@ -179,12 +186,12 @@ router.post('/modify-product/:id',function(req,res){
 })
 
 //get delete product
-router.get('/delete-product/:id',function(req,res){
+router.get('/delete-product/:id',isVendor,function(req,res){
     var id =req.params.id;
     Product.findByIdAndRemove(id,function(err){
         console.log(err);
  });
-    req.flash('sucess','deleted');
+     req.flash('error','deleted');
     res.redirect('/vendor');
 
 })

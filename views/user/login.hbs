@@ -3,7 +3,9 @@
             <div class="alert alert-danger">{{this.msg}}</div>
             {{/each}}
         {{/if}}
- 
+  {{#each messages}}
+<div class="alert alert-danger">{{this}}</div>
+{{/each}}
 <div class="row">
     <div class="col-md-4 col-md-offset-4">
         <h1>{{title}}</h1>
@@ -17,7 +19,7 @@
             <label for="password">Password</label>
             <input type="password"  name="password" class="form-control" placeholder="Password">
         </div>
-       
+       <input type="hidden" name="_csrf" value="{{csrfToken}}">
         <button type="submit" class="btn btn-default">Log in</button>
         </form>
     </div>

@@ -14,7 +14,7 @@ var isUser =auth.isUser;
 /* GET home page. */
 router.get('/',function(req, res, next) {
   var messages = req.flash('error');
-  if(isUser){ name=res.locals.user.name};
+  
   Product.find(function(err, docs){
       console.log(docs);
      var productChunks = [];

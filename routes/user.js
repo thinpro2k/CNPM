@@ -53,21 +53,3 @@ router.post('/login', passport.authenticate('local.login',{
 }));
 
 module.exports = router;
-
-// function isLoggedIn(req, res, next){
-//   if(req.isAuthenticated()){
-//     //req.isAuthenticated() will return true if user is logged in
-//     next();
-//   } else{
-//     res.redirect("/");
-//   }
-// }
-
-// function notLoggedIn(req, res, next){
-//   if(!req.isAuthenticated()){
-//     //req.isAuthenticated() will return true if user is logged in
-//     next();
-//   } else{
-//     res.redirect("/");
-//   }
-// }

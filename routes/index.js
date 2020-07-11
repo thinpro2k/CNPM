@@ -85,11 +85,3 @@ Handlebars.registerHelper("counter", function (index){
   return index + 1;
 });
 module.exports = router;
-function notLoggedIn(req, res, next){
-  if(!req.isAuthenticated()){
-    //req.isAuthenticated() will return true if user is logged in
-    next();
-  } else{
-    res.redirect("/");
-  }
-}

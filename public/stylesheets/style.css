@@ -1,5 +1,5 @@
 .thumbnail img{
-  max-height: 200px;
+  max-height: 150px;
   max-width: 300px;
 }
 .thumbnail .description {
@@ -9,10 +9,23 @@
   font-weight: bold;
   font-size:  16px;
 }
-h1, h2, h3, h4, h5, h6 {
+ h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase !important;
   font-weight: 700 !important;
-  color: chartreuse;
+  color :red;
+  
+} 
+.backgroundabout{
+  background-color: mintcream;
+  
+}
+  
+.background{
+  
+
+  background-image: url('https://mabustudio.com/wp-content/uploads/2020/01/chup-san-pham-flatlay-5-scaled.jpg');
+  background-repeat: no-repeat;
+  background-size: auto;
   
 }
 .imgnotfound{

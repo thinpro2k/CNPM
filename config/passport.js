@@ -48,6 +48,8 @@ passport.use('local.register', new LocalStrategy({
         user.username = username;
         user.password = user.encryptPassword(password);
         user.vendor = 0;
+        user.admin = 0;
+        user.user = 1;
        
         user.save(function(err,result){
             if(err){

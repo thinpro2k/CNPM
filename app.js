@@ -47,41 +47,7 @@ app.use(flash());
 //exprss validator
 
 app.use(validator());
-// app.use(validator({
-//   errorFormatter: function(param,msg,value){
-//     var namespace =param.split('.'),
-//     root =namespace.shift(),
-//     formParam =root;
-//     while (namespace.length){
-//       formParam +='['+namespace.shift()+']';
-//     }
-//     return {
-//       param :formParam,
-//       msg:msg,
-//       value:value
-//     };
 
-//   },
-//   customValidators:{
-//     isImage:function(value,filename){
-//       var extension = (path.extname(filename)).toLowerCase();
-//       switch(extension){
-//         case  '.jpg':
-//           return '.jpg';
-//         case  '.jpeg':
-//           return '.jpeg';
-//         case  '.png':
-//           return '.png';
-//         case  '':
-//           return '.jpg';
-//         default :
-//          return false;
-//       }
-//     }
-//   }
-
-  
-// }));
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -123,7 +89,7 @@ var userRoutes = require('./routes/user');
 
 app.use('/vendor',vendor);
 app.use('/user', userRoutes);
-app.use('/admin/index',adminPages);
+app.use('/admin',adminPages);
 app.use('/', routes);
 
 

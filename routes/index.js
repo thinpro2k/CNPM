@@ -15,6 +15,8 @@ var isUser =auth.isUser;
 router.get('/',function(req, res, next) {
   var messages = req.flash('error');
   
+ 
+  
   Product.find(function(err, docs){
       console.log(docs);
      var productChunks = [];
@@ -22,7 +24,13 @@ router.get('/',function(req, res, next) {
     for( var i= 0 ; i < docs.length ; i+= chunkSize) {
         productChunks.push(docs.splice(i, i + chunkSize));
     }
-      res.render('shop/index', { title: 'Shopping Cart' , products : productChunks,messages: messages});
+    if (req.isAuthenticated()) {
+      res.render('shop/index', { title: 'Shopping Cart' , products : productChunks,messages: messages,name:res.locals.user.name});
+    }
+    else {
+     res.render('shop/index', { title: 'Shopping Cart' , products : productChunks,messages: messages});
+    }
+    
   }).lean();
   
 });

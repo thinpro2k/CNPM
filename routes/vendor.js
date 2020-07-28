@@ -20,7 +20,8 @@ router.get('/',isVendor,function(req,res){
        res.render('vendor/products',{
            products: products,
            count:count,
-           messages:messages
+           messages:messages,
+           name : res.locals.user.name
         });
    });
    
@@ -37,7 +38,8 @@ router.get('/add_product',isVendor,function(req,res){
        title :title,
        description : description,
        price : price,
-       messages:messages
+       messages:messages,
+       name : res.locals.user.name
    });
     
     
@@ -107,8 +109,7 @@ router.post('/add_product',function(req,res){
 //get   modify product
 router.get('/modify-product/:id',isVendor,function(req,res){
       var errors;
-      
-       if (req.session.errors)
+      if (req.session.errors)
          errors=req.session.errors;
          req.session.errors=null;
        Product.findById(req.params.id,function(err,p){
@@ -117,7 +118,6 @@ router.get('/modify-product/:id',isVendor,function(req,res){
                res.redirect('/vendor')
            }
            else{
-               
                res.render('vendor/modify_product',{
                    title : p.title,
                    errors: errors,
@@ -125,9 +125,9 @@ router.get('/modify-product/:id',isVendor,function(req,res){
                    category:p.category,
                    price :p.price,
                    image :p.image,
-                   id :p._id
-
-               });
+                   id :p._id,
+                   name : res.locals.user.name
+                });
            }
        });
          

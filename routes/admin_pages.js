@@ -88,7 +88,4 @@ router.get('/deletevendor/:id', function(req, res, next){
     });
   });
 
-
-
-
- module.exports = router;
+module.exports = router;

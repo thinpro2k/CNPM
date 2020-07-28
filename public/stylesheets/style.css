@@ -15,15 +15,19 @@
   color :red;
   
 } 
-/* .backgroundabout{
-  background-color: mintcream;
+.backgroundheader{
   
-} */
+
+  background-image: url('https://scontent-hkg4-1.xx.fbcdn.net/v/t1.15752-9/116269752_305527013902454_6891553637901475975_n.png?_nc_cat=100&_nc_sid=b96e70&_nc_ohc=fqG_iG66TmcAX_MTGeo&_nc_ht=scontent-hkg4-1.xx&oh=d194d8f828157475ee32fe9adc3d9d5e&oe=5F479A98');
+  background-repeat: no-repeat;
+  background-size: auto;
+  
+}
   
 .background{
   
 
-  background-image: url('https://thuthuatnhanh.com/wp-content/uploads/2020/01/background-powerpoint-dep.jpg');
+  background-image: url('https://mabustudio.com/wp-content/uploads/2020/01/chup-san-pham-flatlay-5-scaled.jpg');
   background-repeat: no-repeat;
   background-size: auto;
   
